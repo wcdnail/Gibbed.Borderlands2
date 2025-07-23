@@ -30,6 +30,7 @@ using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using Caliburn.Micro.Contrib;
+using Gibbed.Borderlands2.GameInfo;
 using Gibbed.Gearbox.WPF;
 
 namespace Gibbed.Borderlands2.SaveEdit
@@ -100,6 +101,12 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 base.OnStartup(sender, e);
                 GameInfo.InfoManager.Touch();
+
+                if (e.Args.Length > 0)
+                {
+                    var model = GetInstance(typeof(ShellViewModel), null) as ShellViewModel;
+                    model.ReadSavePlain(e.Args[0], Platform.PC);
+                }
             }
             catch (CompositionException ex)
             {

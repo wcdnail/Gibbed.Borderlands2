@@ -195,6 +195,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                 {
                     this._SaveFile = value;
                     this.NotifyOfPropertyChange(nameof(SaveFile));
+                    OnSaveFileLoadDone(Encoding.UTF8.GetString(this._SaveFile.SaveGame.UIPreferences.CharacterName));
                 }
             }
         }
@@ -247,8 +248,9 @@ namespace Gibbed.Borderlands2.SaveEdit
         [ImportingConstructor]
         public ShellViewModel()
         {
-            this._IsAboutSelected = true;
-            this._IsFirstAboutSelection = true;
+            this._IsGeneralSelected = true;
+            this._IsAboutSelected = false;
+            this._IsFirstAboutSelection = false;
             this._NewSaveFromPlayerClass = new DelegateCommand<PlayerClassDefinition>(this.DoNewSaveFromPlayerClass);
         }
 
@@ -328,11 +330,44 @@ namespace Gibbed.Borderlands2.SaveEdit
                         .WithIcon(MessageBoxImage.Error).AsCoroutine());
         }
 
+        public SaveFile ReadSavePlain(string fileName, Platform platform = Platform.Invalid)
+        {
+            SaveFile saveFile = null;
+            using (var input = File.OpenRead(fileName))
+                saveFile = SaveFile.Deserialize(input, platform, DeserializeSettings.None);
+
+            try
+            {
+                FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(
+                    saveFile.SaveGame);
+
+                this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.Character.ImportData(saveFile.SaveGame);
+                this.Vehicle.ImportData(saveFile.SaveGame);
+                this.CurrencyOnHand.ImportData(saveFile.SaveGame);
+                this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
+                this.FastTravel.ImportData(saveFile.SaveGame);
+                this.SavePath = fileName;
+                this.SaveFile = saveFile;
+                this.MaybeSwitchToGeneral();
+            }
+            catch (Exception)
+            {
+                this.SaveFile = null;
+                throw;
+            }
+
+            return saveFile;
+        }
+
         public IEnumerable<IResult> ReadSave()
         {
-            string fileName = null;
-            var platform = Platform.Invalid;
+            return ReadSaveImpl();
+        }
 
+        public IEnumerable<IResult> ReadSaveImpl(string fileName = null, Platform platform = Platform.Invalid)
+        {
             foreach (var result in this.SaveLoad.OpenFile(s => fileName = s, p => platform = p))
             {
                 yield return result;
@@ -348,32 +383,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             yield return new DelegateResult(
                 () =>
                 {
-                    using (var input = File.OpenRead(fileName))
-                    {
-                        saveFile = SaveFile.Deserialize(input, platform, DeserializeSettings.None);
-                    }
-
-                    try
-                    {
-                        FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(
-                            saveFile.SaveGame);
-
-                        this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
-                        this.Character.ImportData(saveFile.SaveGame);
-                        this.Vehicle.ImportData(saveFile.SaveGame);
-                        this.CurrencyOnHand.ImportData(saveFile.SaveGame);
-                        this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
-                        this.Bank.ImportData(saveFile.SaveGame, saveFile.Platform);
-                        this.FastTravel.ImportData(saveFile.SaveGame);
-                        this.SavePath = fileName;
-                        this.SaveFile = saveFile;
-                        this.MaybeSwitchToGeneral();
-                    }
-                    catch (Exception)
-                    {
-                        this.SaveFile = null;
-                        throw;
-                    }
+                    saveFile = ReadSavePlain(fileName, platform);
                 })
                 .Rescue<DllNotFoundException>().Execute(
                     x => new MyMessageBox($"Failed to load save: {x.Message}", "Error")
@@ -626,6 +636,18 @@ namespace Gibbed.Borderlands2.SaveEdit
                            .ExtractExpansionSavedataFromUnloadableItemData(
                                saveFile.SaveGame);
             }
+        }
+
+        private void OnSaveFileLoadDone(string charName)
+        {
+            if (this._SavePath == null)
+                return;
+
+            var caption = Path.GetFileName(this._SavePath);
+            if (charName.Length > 0)
+                caption += " [" + charName + "]";
+
+            AppWindowManager.RootWindow.Title = caption;
         }
     }
 }
