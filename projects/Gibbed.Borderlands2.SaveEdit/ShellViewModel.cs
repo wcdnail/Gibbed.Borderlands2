@@ -45,7 +45,6 @@ namespace Gibbed.Borderlands2.SaveEdit
     {
         #region Imports
         private GeneralViewModel _General;
-        private CharacterViewModel _Character;
         private VehicleViewModel _Vehicle;
         private CurrencyOnHandViewModel _CurrencyOnHand;
         private BackpackViewModel _Backpack;
@@ -62,18 +61,6 @@ namespace Gibbed.Borderlands2.SaveEdit
             {
                 this._General = value;
                 this.NotifyOfPropertyChange(nameof(General));
-            }
-        }
-
-        [Import(typeof(CharacterViewModel))]
-        public CharacterViewModel Character
-        {
-            get { return this._Character; }
-
-            set
-            {
-                this._Character = value;
-                this.NotifyOfPropertyChange(nameof(Character));
             }
         }
 
@@ -290,7 +277,7 @@ namespace Gibbed.Borderlands2.SaveEdit
             FileFormats.SaveExpansion.ExtractExpansionSavedataFromUnloadableItemData(saveFile.SaveGame);
 
             this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
-            this.Character.ImportData(saveFile.SaveGame);
+            //this.Character.ImportData(saveFile.SaveGame);
             this.Vehicle.ImportData(saveFile.SaveGame);
             this.CurrencyOnHand.ImportData(saveFile.SaveGame);
             this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
@@ -342,7 +329,7 @@ namespace Gibbed.Borderlands2.SaveEdit
                     saveFile.SaveGame);
 
                 this.General.ImportData(saveFile.SaveGame, saveFile.Platform);
-                this.Character.ImportData(saveFile.SaveGame);
+                //this.Character.ImportData(saveFile.SaveGame);
                 this.Vehicle.ImportData(saveFile.SaveGame);
                 this.CurrencyOnHand.ImportData(saveFile.SaveGame);
                 this.Backpack.ImportData(saveFile.SaveGame, saveFile.Platform);
@@ -601,7 +588,6 @@ namespace Gibbed.Borderlands2.SaveEdit
         private void WriteSave(string savePath, SaveFile saveFile)
         {
             this.General.ExportData(saveFile.SaveGame, out var platform);
-            this.Character.ExportData(saveFile.SaveGame);
             this.Vehicle.ExportData(saveFile.SaveGame);
             this.CurrencyOnHand.ExportData(saveFile.SaveGame);
             this.Backpack.ExportData(saveFile.SaveGame, platform);

@@ -49,11 +49,11 @@ namespace Gibbed.Borderlands2.SaveEdit
         }
 
         #region Imports
-        private CharacterViewModel _Character;
+        private GeneralViewModel _Character;
         private BackpackViewModel _Backpack;
 
-        [Import(typeof(CharacterViewModel))]
-        public CharacterViewModel Character
+        [Import(typeof(GeneralViewModel))]
+        public GeneralViewModel Character
         {
             get { return this._Character; }
             set

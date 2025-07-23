@@ -32,6 +32,26 @@
              mc:Ignorable="d"
              d:DesignWidth="720"
              d:DesignHeight="480">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="GroupedPlayerClasses"
+            Source="{Binding PlayerClasses}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Group" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="GroupedHeadAssets"
+            Source="{Binding HeadAssets}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Group" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="GroupedSkinAssets"
+            Source="{Binding SkinAssets}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Group" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
     <d:DesignerProperties.DesignStyle>
         <Style TargetType="UserControl">
             <Setter Property="Background"
@@ -127,6 +147,217 @@
                         <c:Message.Attach>[Event Click] = [Action DoImportStats]</c:Message.Attach>
                     </Button>
                 </WrapPanel>
+            </Grid>
+        </Expander>
+        <Expander Header="General"
+            IsExpanded="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="Class:" />
+                <ComboBox Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="3"
+                    ItemsSource="{Binding Source={StaticResource GroupedPlayerClasses}}"
+                    DisplayMemberPath="Name"
+                    SelectedValuePath="Path"
+                    SelectedValue="{Binding PlayerClass}">
+                    <ComboBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Expander IsExpanded="True">
+                                                    <Expander.Header>
+                                                        <TextBlock FontSize="15"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Name}" />
+                                                    </Expander.Header>
+                                                    <ItemsPresenter />
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ComboBox.GroupStyle>
+                </ComboBox>
+                <Label Grid.Row="2"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="Experience Level:" />
+                <DockPanel LastChildFill="True"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="3">
+                    <Button DockPanel.Dock="Right"
+                        Content="Sync"
+                        ToolTip="Synchronize experience level from experience points">
+                        <c:Message.Attach>[Event Click] = [Action DoSynchronizeExpLevel]</c:Message.Attach>
+                    </Button>
+                    <xctk:IntegerUpDown HorizontalAlignment="Stretch"
+                        Minimum="1"
+                        Value="{Binding ExpLevel, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+                <Label Grid.Row="3"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="Experience Points:" />
+                <DockPanel LastChildFill="True"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="3">
+                    <Button DockPanel.Dock="Right"
+                        Content="Sync"
+                        ToolTip="Synchronize experience points from experience level">
+                        <c:Message.Attach>[Event Click] = [Action DoSynchronizeExpPoints]</c:Message.Attach>
+                    </Button>
+                    <xctk:IntegerUpDown Minimum="0"
+                        Value="{Binding ExpPoints, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+                <Label Grid.Row="4"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="Overpower Level:" />
+                <xctk:IntegerUpDown Grid.Row="4"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    Margin="3"
+                    Minimum="0"
+                    Maximum="8388607"
+                    Value="{Binding OverpowerLevel, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="5"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="General Skill Points:" />
+                <xctk:IntegerUpDown Grid.Row="5"
+                    Grid.Column="1"
+                    Margin="3"
+                    Value="{Binding GeneralSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="6"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="Specialist Skill Points:" />
+                <xctk:IntegerUpDown Grid.Row="6"
+                    Grid.Column="1"
+                    Margin="3"
+                    Value="{Binding SpecialistSkillPoints, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </Expander>
+        <Expander Header="Customization"
+            IsExpanded="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="Name:" />
+                <TextBox Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="3"
+                    Text="{Binding CharacterName, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="Head:" />
+                <ComboBox Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="3"
+                    ItemsSource="{Binding Source={StaticResource GroupedHeadAssets}}"
+                    DisplayMemberPath="Name"
+                    SelectedValuePath="Path"
+                    SelectedValue="{Binding SelectedHead}">
+                    <ComboBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Expander IsExpanded="True">
+                                                    <Expander.Header>
+                                                        <TextBlock FontSize="15"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Name}" />
+                                                    </Expander.Header>
+                                                    <ItemsPresenter />
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ComboBox.GroupStyle>
+                </ComboBox>
+                <Label Grid.Row="2"
+                    Grid.Column="0"
+                    HorizontalContentAlignment="Right"
+                    Content="Skin:" />
+                <ComboBox Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="3"
+                    ItemsSource="{Binding Source={StaticResource GroupedSkinAssets}}"
+                    DisplayMemberPath="Name"
+                    SelectedValuePath="Path"
+                    SelectedValue="{Binding SelectedSkin}">
+                    <ComboBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Expander IsExpanded="True">
+                                                    <Expander.Header>
+                                                        <TextBlock FontSize="15"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Name}" />
+                                                    </Expander.Header>
+                                                    <ItemsPresenter />
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ComboBox.GroupStyle>
+                </ComboBox>
             </Grid>
         </Expander>
     </StackPanel>

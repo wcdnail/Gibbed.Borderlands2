@@ -113,21 +113,6 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
-                               Source="Resources\green vault symbol.png" />
-                        <Label VerticalAlignment="Center"
-                               Content="General" />
-                    </StackPanel>
-                </TabItem.Header>
-                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                    <ContentControl x:Name="General"
-                                    IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
-                </ScrollViewer>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Height="24"
                                Source="Resources\red skull.png" />
                         <Label VerticalAlignment="Center"
                                Content="Character" />
@@ -135,7 +120,7 @@
                 </TabItem.Header>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                    <ContentControl x:Name="Character"
+                    <ContentControl x:Name="General"
                                     IsEnabled="{Binding Path=SaveFile, Converter={StaticResource NullToBooleanConverter1}, ConverterParameter=true}" />
                 </ScrollViewer>
             </TabItem>
@@ -279,7 +264,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="24"
-                               Source="Resources\question mark.png" />
+                               Source="Resources\green vault symbol.png" />
                         <Label VerticalAlignment="Center"
                                Content="About" />
                     </StackPanel>
