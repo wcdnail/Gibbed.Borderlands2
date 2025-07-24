@@ -36,7 +36,7 @@ namespace Gibbed.Borderlands2.SaveEdit
         private const string _WindowTitle = "Gibbed's Borderlands 2 Save Editor";
         private const double _WindowWidth = 800.0 + 95.0;
         private const double _WindowHeight = 800;
-        private const string _WindowIconPath = "pack://application:,,,/Resources/Handsome Jack.png";
+        private const string _WindowIconPath = "pack://application:,,,/Resources/bl2-psycho.png";
 
         protected override Window EnsureWindow(object model, object view, bool isDialog)
         {

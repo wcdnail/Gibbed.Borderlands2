@@ -47,7 +47,7 @@
     <ProjectReference Include="..\Gibbed.IO\Gibbed.IO.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Handsome Jack.ico</ApplicationIcon>
+    <ApplicationIcon>bl2-psycho.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="Resources\assaultrifle.png" />
@@ -87,6 +87,9 @@
     <Resource Include="Resources\stash.png" />
     <Resource Include="Resources\torgue token.png" />
     <Resource Include="Resources\wheel.png" />
+	<Resource Include="Resources\bl2-psycho.png" />
+	<Resource Include="Resources\borderlands2.ico" />
+	<Resource Include="Resources\borderlands2.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Xceed.Wpf.Toolkit\PropertyGrid\Images\AdvancedProperties11.png" />
