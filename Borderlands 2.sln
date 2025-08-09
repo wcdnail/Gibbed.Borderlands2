@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gibbed.Gearbox.Common", "pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gibbed.Gearbox.WPF", "projects\Gearbox\Gibbed.Gearbox.WPF\Gibbed.Gearbox.WPF.csproj", "{4E28E6D8-7247-4ECE-A4B6-F5750A5135F5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaveSearch", "projects\Frodo.Borderlands2.SaveSearch\SaveSearch.csproj", "{7AE95C66-DD9F-4B3C-81A2-48AF9CF3AC6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,12 @@ Global
 		{4E28E6D8-7247-4ECE-A4B6-F5750A5135F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E28E6D8-7247-4ECE-A4B6-F5750A5135F5}.SaveEdit Packaging|Any CPU.ActiveCfg = Debug|Any CPU
 		{4E28E6D8-7247-4ECE-A4B6-F5750A5135F5}.SaveEdit Packaging|Any CPU.Build.0 = Debug|Any CPU
+		{7AE95C66-DD9F-4B3C-81A2-48AF9CF3AC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE95C66-DD9F-4B3C-81A2-48AF9CF3AC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE95C66-DD9F-4B3C-81A2-48AF9CF3AC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE95C66-DD9F-4B3C-81A2-48AF9CF3AC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE95C66-DD9F-4B3C-81A2-48AF9CF3AC6F}.SaveEdit Packaging|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE95C66-DD9F-4B3C-81A2-48AF9CF3AC6F}.SaveEdit Packaging|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +135,7 @@ Global
 		{62FDBD21-0C94-49A2-A708-B3085FF58ED4} = {5C13AC7D-CFCE-41AE-AE34-BEABE93EBE6C}
 		{3CE86424-E944-4566-9537-1A22CA73F4B7} = {62FDBD21-0C94-49A2-A708-B3085FF58ED4}
 		{4E28E6D8-7247-4ECE-A4B6-F5750A5135F5} = {62FDBD21-0C94-49A2-A708-B3085FF58ED4}
+		{7AE95C66-DD9F-4B3C-81A2-48AF9CF3AC6F} = {145E157B-54E1-4B27-8C68-896835678AAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA8B53B1-0A90-451C-8501-42BC1F856CD4}
